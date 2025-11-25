@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    margin-inline: auto;
+    max-width: 1440px;
+    background-color:  hsl(243, 96%, 9%);
+    color: #fff;
+    line-height: 1.5;
+}
+
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5rem;
+    align-items: center;
+}
