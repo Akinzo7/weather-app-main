@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- displays site properly based on user's device -->
 
     <link
       rel="icon"
@@ -13,12 +12,12 @@
     />
     <link rel="stylesheet" href="./styles/reset.css" />
     <link rel="stylesheet" href="./styles/style.css" />
-    <link rel="stylesheet" href="./styles/nav.css">
-    <link rel="stylesheet" href="./styles/search.css">
+    <link rel="stylesheet" href="./styles/nav.css" />
+    <link rel="stylesheet" href="./styles/search.css" />
+    <link rel="stylesheet" href="./styles/layout.css" />
 
     <title>Weather app</title>
 
-    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
     <style>
       .attribution {
         font-size: 11px;
@@ -29,12 +28,14 @@
       }
     </style>
   </head>
+
   <body>
     <header class="header" role="header">
       <nav class="navbar">
         <div class="logo">
           <img src="./assets/images/logo.svg" alt="weather logo" />
         </div>
+
         <div class="units_container">
           <button class="unit_button">
             <img src="./assets/images/icon-units.svg" alt="" />
@@ -50,35 +51,39 @@
               <div class="dropdown_options flex">
                 <button class="dropdown_option active_option">
                   Celsius (°C)
-                  <span
-                    ><img src="./assets/images/icon-checkmark.svg" alt=""
-                  /></span>
+                  <span>
+                    <img src="./assets/images/icon-checkmark.svg" alt="" />
+                  </span>
                 </button>
                 <button class="dropdown_option">Fahrenheit (°F)</button>
               </div>
             </div>
+
             <hr />
+
             <div class="dropdown_section wind">
               <div class="dropdown_label">Wind Speed</div>
               <div class="dropdown_options flex">
                 <button class="dropdown_option active_option">
                   km/h
-                  <span
-                    ><img src="./assets/images/icon-checkmark.svg" alt=""
-                  /></span>
+                  <span>
+                    <img src="./assets/images/icon-checkmark.svg" alt="" />
+                  </span>
                 </button>
                 <button class="dropdown_option">mph</button>
               </div>
             </div>
+
             <hr />
+
             <div class="dropdown_section precipitation">
               <div class="dropdown_label">Precipitation</div>
               <div class="dropdown_options flex">
                 <button class="dropdown_option active_option">
                   Millimeters (mm)
-                  <span
-                    ><img src="./assets/images/icon-checkmark.svg" alt=""
-                  /></span>
+                  <span>
+                    <img src="./assets/images/icon-checkmark.svg" alt="" />
+                  </span>
                 </button>
                 <button class="dropdown_option">Inches (in)</button>
               </div>
@@ -87,37 +92,228 @@
         </div>
       </nav>
     </header>
+
     <main class="container">
-      <h1 class="page_hero">How’s the sky looking today?</h1>
+      <h1 class="page_hero">How's the sky looking today?</h1>
+
       <div class="search_bar">
-        <input type="search" id="searchInput" placeholder="Search for a place...">
+        <input
+          type="search"
+          id="searchInput"
+          placeholder="Search for a place..."
+        />
         <button class="search_button">Search</button>
       </div>
+
+      <div class="grid_container">
+        <!-- CITY DETAILS -->
+        <div class="city_details">
+          <div class="city_info">
+            <h3>Berlin, Germany</h3>
+            <p>Tuesday, Aug 5, 2025</p>
+          </div>
+          <div class="temperature_info">
+            <img src="./assets/images/icon-sunny.webp" alt="" />
+            <em>68°</em>
+          </div>
+        </div>
+
+        <!-- HOURLY -->
+        <div class="hourly_forecast">
+          <div class="hourly_heading">
+            <h3>Hourly forecast</h3>
+            <div class="placeholder">
+              <p>Tuesday</p>
+              <img src="./assets/images/icon-dropdown.svg" alt="dropdown icon" />
+            </div>
+          </div>
+          <div class="hourly_container">
+          <div class="hourly_cards">
+            <div class="omo">
+            <img
+              src="./assets/images/icon-overcast.webp"
+              alt="overcast icon"
+            />
+
+            <p class="time">3 PM</p>
+            </div>
+            <p class="degs">68°</p>
+          </div>
+          
+          <div class="hourly_cards">
+            <div class="omo">
+            <img
+              src="./assets/images/icon-partly-cloudy.webp"
+              alt="overcast icon"
+            />
+            <p class="time">4 PM</p>
+            </div>
+            <p class="degs">68°</p>
+          </div>
+          <div class="hourly_cards">
+            <div class="omo">
+            <img
+              src="./assets/images/icon-sunny.webp"
+              alt="sunny icon"
+            />
+            <p class="time">5 PM</p>
+            </div>
+            <p class="degs">68°</p>
+          </div>
+          <div class="hourly_cards">
+            <div class="omo">
+            <img
+              src="./assets/images/icon-partly-cloudy.webp"
+              alt="cloudy icon"
+            />
+            <p class="time">6 PM</p>
+            </div>
+            <p class="degs">66°</p>
+          </div>
+          <div class="hourly_cards">
+            <div class="omo">
+            <img
+              src="./assets/images/icon-snow.webp"
+              alt="snow icon"
+            />
+            <p class="time">7 PM</p>
+            </div>
+            <p class="degs">66°</p>
+          </div>
+          <div class="hourly_cards">
+            <div class="omo">
+            <img
+              src="./assets/images/icon-fog.webp"
+              alt="fog icon"
+            />
+            <p class="time">8 PM</p>
+            </div>
+            <p class="degs">64°</p>
+          </div>
+          <div class="hourly_cards">
+            <div class="omo">
+            <img
+              src="./assets/images/icon-drizzle.webp"
+              alt="drizzle icon"
+            />
+            <p class="time">9 PM</p>
+            </div>
+            <p class="degs">63°</p>
+          </div>
+          <div class="hourly_cards">
+            <div class="omo">
+            <img
+              src="./assets/images/icon-overcast.webp"
+              alt="overcast icon"
+            />
+            <p class="time">10 PM</p>
+            </div>
+            <p class="degs">63°</p>
+          </div>
+        </div>
+        </div>
+
+        <!-- WEATHER CARDS -->
+        <div class="weather_cards">
+          <div class="weather__card">
+            <h4>Feels Like</h4>
+            <p>64°</p>
+          </div>
+          <div class="weather__card">
+            <h4>Humidity</h4>
+            <p>46%</p>
+          </div>
+          <div class="weather__card">
+            <h4>Wind</h4>
+            <p>9 mph</p>
+          </div>
+          <div class="weather__card">
+            <h4>Precipitation</h4>
+            <p>0 in</p>
+          </div>
+        </div>
+
+        <!-- DAILY FORECAST -->
+        <div class="daily_forecast">
+          <h3>Daily forecast</h3>
+
+          <div class="forecast_cards">
+            <div class="forecast__card">
+              <p>Tue</p>
+              <img src="./assets/images/icon-rain.webp" alt="rain icon" />
+              <div class="degrees">
+                <p>68°</p>
+                <p>57°</p>
+              </div>
+            </div>
+
+            <div class="forecast__card">
+              <p>Wed</p>
+              <img src="./assets/images/icon-drizzle.webp" alt="drizzle icon" />
+              <div class="degrees">
+                <p>70°</p>
+                <p>59°</p>
+              </div>
+            </div>
+
+            <div class="forecast__card">
+              <p>Thu</p>
+              <img src="./assets/images/icon-sunny.webp" alt="sunny icon" />
+              <div class="degrees">
+                <p>75°</p>
+                <p>57°</p>
+              </div>
+            </div>
+
+            <div class="forecast__card">
+              <p>Fri</p>
+              <img
+                src="./assets/images/icon-partly-cloudy.webp"
+                alt="partly cloudy icon"
+              />
+              <div class="degrees">
+                <p>77°</p>
+                <p>55°</p>
+              </div>
+            </div>
+
+            <div class="forecast__card">
+              <p>Sat</p>
+              <img src="./assets/images/icon-storm.webp" alt="storm icon" />
+              <div class="degrees">
+                <p>70°</p>
+                <p>59°</p>
+              </div>
+            </div>
+
+            <div class="forecast__card">
+              <p>Sun</p>
+              <img src="./assets/images/icon-snow.webp" alt="snow icon" />
+              <div class="degrees">
+                <p>77°</p>
+                <p>61°</p>
+              </div>
+            </div>
+
+            <div class="forecast__card">
+              <p>Mon</p>
+              <img src="./assets/images/icon-fog.webp" alt="fog icon" />
+              <div class="degrees">
+                <p>75°</p>
+                <p>59°</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
+
     <footer class="footer"></footer>
-    
-    <!-- Insert temperature here -->
-    
-    Humidity
-    <!-- Insert humidity here -->
-    
-    Wind
-    <!-- Insert wind here -->
-    
-    Precipitation
-    <!-- Insert precipitation here -->
-    
-    Daily forecast
-    <!-- Insert daily forecast for the next 7 days here -->
-    
-    Hourly forecast
-    <!-- Insert hourly forecast for the selected day here -->
-    
+
     <div class="attribution">
       Challenge by
       <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>.
       Coded by <a href="#">Your Name Here</a>.
-      <script src=""></script>
     </div>
   </body>
 </html>
