@@ -20,3 +20,16 @@ body{
     padding: 1.5rem;
     align-items: center;
 }
+
+main{
+    padding: 1.5rem;
+    max-width: 1200px;
+    margin-inline: auto;
+}
+
+.page_hero{
+   
+   font-size: 3.5rem;
+    font-weight: 700;
+    text-align: center;
+}
