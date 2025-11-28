@@ -6,9 +6,32 @@
    margin-top: 2rem;
 }
 
-.search_bar input {
+.input_wrapper{
+width: 100%;
+ max-width: 35rem;
+ position: relative;
+}
+  
+.search_suggestion {
+   position: absolute;   /* child */
+  top: 100%;            /* directly below the input */
+  left: 0;
+  margin-top: 0.2rem;
+  background-color:hsl(243, 23%, 30%);
   width: 100%;
-  max-width: 35rem;
+  border-radius: 0.3rem;
+  padding: 1rem;
+  z-index: 10;
+
+  visibility: collapse;
+}
+.search_suggestion.visible {
+  visibility: visible;
+}
+
+.input_wrapper input {
+  width: 100%;
+ 
   border-radius: 0.3rem;
   border: none;
   color: #fff;
@@ -17,7 +40,7 @@
   font-size: 1rem;
   cursor: text;
 
-  background-color: hsla(0, 0%, 100%, 0.21);
+  background-color: hsl(243, 23%, 30%);
   background-image: url('../assets/images/icon-search.svg');
   background-repeat: no-repeat;
   background-position: 10px center;

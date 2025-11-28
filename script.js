@@ -51,4 +51,20 @@ toggleSwitch.addEventListener('click', () => {
   
 toggleSwitch.textContent= (toggleSwitch.textContent === "Switch to Imperial") ? "Switch to Metric" : "Switch to Imperial";
 
+});
+
+// Search bar functionality
+const search = document.getElementById('searchInput');
+const searchBtn = document.querySelector('.search_button')
+const suggestionBox = document.querySelector('.search_suggestion')
+
+search.addEventListener('input', () => {
+  suggestionBox.classList.add('visible');
+ 
 })
+
+searchBtn.addEventListener('click', (e) => {
+  const query = search.value;
+
+  console.log(query);
+});
