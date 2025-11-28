@@ -29,7 +29,7 @@ body {
 }
 
 .units_dropdown {
-  display: none !important;
+  display: none ;
   position: absolute;
   align-items: flex-start;
   border-radius: 10px;
