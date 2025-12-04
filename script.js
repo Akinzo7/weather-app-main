@@ -102,7 +102,7 @@ function toggleUnitSystem(e) {
   if (toggleSwitch.textContent === "Switch to Imperial") {
     toggleSwitch.textContent = "Switch to Metric";
     currentUnit = "imperial";
-    
+    dropdownOptions[1].click();
   } else {
     toggleSwitch.textContent = "Switch to Imperial";
     currentUnit = "metric";
@@ -220,6 +220,23 @@ async function fetchCityWeather(cityName) {
     return null;
   }
 }
+
+//update dropdown selections
+
+function updateDropdownSelection(unit) {
+  if (unit === "metric") {
+    dropdownOptions[0].click(); //temperature
+    dropdownOptions[2].click(); //wind speed
+    dropdownOptions[4].click(); //precipitation
+  } else if (unit === "imperial") {
+    dropdownOptions[1].click();
+    dropdownOptions[3].click();
+    dropdownOptions[5].click();
+  }
+
+
+}
+
 //function to convert celsius to fahrenheit
 function convertTemperatureUnits(unit, value) {
   switch (unit) {
