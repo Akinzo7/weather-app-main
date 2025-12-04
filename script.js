@@ -102,10 +102,11 @@ function toggleUnitSystem(e) {
   if (toggleSwitch.textContent === "Switch to Imperial") {
     toggleSwitch.textContent = "Switch to Metric";
     currentUnit = "imperial";
-    dropdownOptions[1].click();
+    updateDropdownSelection("imperial");
   } else {
     toggleSwitch.textContent = "Switch to Imperial";
     currentUnit = "metric";
+    updateDropdownSelection("metric");
   }
 
   updateWeatherUI(currentWeatherData);
