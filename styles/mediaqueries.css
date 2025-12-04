@@ -1,0 +1,107 @@
+@media screen and (max-width: 1120px) {
+  .grid_container {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "city city"
+      "weather weather"
+      "daily daily"
+      "hourly_forecast hourly_forecast";
+  }
+
+  .hourly_forecast {
+    margin-top: 2rem;
+  }
+}
+
+@media screen and (max-width: 805px) {
+  @media screen and (max-width: 805px) {
+    .forecast_cards {
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      gap: 0.5rem;
+    }
+
+    .forecast__card {
+      flex: 1; /* Shorthand for flex-grow: 1, flex-shrink: 1, flex-basis: 0 */
+      max-width: 130px;
+      /* min-width: 130px; */
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .city_details {
+    background-image: url("../assets/images/bg-today-small.svg");
+  }
+}
+
+@media screen and (max-width: 640px) {
+
+  .unit_button {
+    padding-inline: 1rem;
+    padding-block: 0.5rem;
+  }
+  body {
+    padding-inline: 0.75rem;
+  }
+  main{
+    padding: 0;
+  }
+.forecast_cards{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: .75rem;
+}
+  .navbar {
+    padding-block: 1rem;
+    padding-inline: 0;
+  }
+  .logo_img {
+    /* width:50%; */
+  }
+  .container {
+    padding-bottom: 1rem;
+  }
+  .page_hero {
+    text-align: center;
+    font-size: 2rem;
+    padding-block: 1.2rem;
+  
+  }
+  .weather_cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .search_bar {
+    flex-direction: column;
+    gap: 12px;
+    padding-inline: 8px;
+  }
+  .input_wrapper {
+    max-width: none;
+  }
+  .city_details {
+    flex-direction: column;
+    justify-content: center;
+  }
+  .city {
+    font-size: 1.8rem !important;
+    line-height: ;
+  }
+  .date {
+    font-size: 1.125rem !important;
+  }
+  em {
+    font-size: 4rem;
+  }
+
+  .hourly_heading h3{
+    font-size: 1.125rem;
+  }
+  .day_selector{
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
+}

@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="./styles/nav.css" />
     <link rel="stylesheet" href="./styles/search.css" />
     <link rel="stylesheet" href="./styles/layout.css" />
+    <link rel="stylesheet" href="/styles/mediaqueries.css">
 
     <title>Weather app</title>
 
@@ -33,7 +34,7 @@
     <header class="header">
       <nav class="navbar">
         <div class="logo">
-          <img src="./assets/images/logo.svg" alt="weather logo" />
+          <img src="./assets/images/logo.svg" class="logo_img" alt="weather logo" />
         </div>
 
         <div class="units_container">
@@ -132,13 +133,19 @@
         <div class="hourly_forecast">
           <div class="hourly_heading">
             <h3>Hourly forecast</h3>
-            <div class="placeholder">
-              <p>Tuesday</p>
-              <img
+            <select class="day_selector">
+              <option>Tuesday</option>
+              <option>Wednesday</option>
+              <option>Thursday</option>
+              <option>Friday</option>
+              <option>Saturday</option>
+              <option>Sunday</option>
+              <option>Monday</option>
+              <!-- <img
                 src="./assets/images/icon-dropdown.svg"
                 alt="dropdown icon"
-              />
-            </div>
+              /> -->
+            </select>
           </div>
           <div class="hourly_container">
             <div class="hourly_cards">
@@ -221,7 +228,7 @@
         <div class="weather_cards">
           <div class="weather__card">
             <h4 >Feels Like</h4>
-            <p class="feels_like" data-feels-like="64" >64°</p>
+            <p class="feels_like" data-temp="64" >64°</p>
           </div>
           <div class="weather__card">
             <h4 >Humidity</h4>

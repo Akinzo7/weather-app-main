@@ -148,13 +148,26 @@ em {
     margin-bottom: 1rem;
 }
 
-.placeholder{
+
+
+.day_selector{
+    color: #fff;
     display: flex;
     gap:0.5rem;
     background-color: hsla(240, 6%, 70%, 0.21);
     padding: 8px 16px;
     border-radius: 0.5rem;
     font-weight: 400    ;
+}
+
+.day_selector option{
+    background-color: hsl(242.22deg 26.73% 19.8%);
+    color: #fff;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 0.3rem;
+    cursor: pointer;
+   
 }
 
 .hourly_container{

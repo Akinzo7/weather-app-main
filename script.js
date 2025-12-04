@@ -115,6 +115,7 @@ function toggleUnitSystem(e) {
 
 async function handleSearchClick() {
   console.log(search.value);
+  suggestionBox.classList.add("visible");
   if (!search.value.trim()) {
     console.log("search input is empty");
     return;
@@ -144,9 +145,7 @@ async function handleSearchClick() {
   }
 }
 
-function showSearchSuggestions(e) {
-  suggestionBox.classList.add("visible");
-}
+function showSearchSuggestions(e) {}
 
 //Geocoding API Call
 async function getCoordinates(cityName) {
@@ -234,8 +233,6 @@ function updateDropdownSelection(unit) {
     dropdownOptions[3].click();
     dropdownOptions[5].click();
   }
-
-
 }
 
 //function to convert celsius to fahrenheit
@@ -244,7 +241,7 @@ function convertTemperatureUnits(unit, value) {
     case "metric":
       return value;
     case "imperial":
-      return (value * 1.8 + 32).toFixed(1);
+      return Math.round(value * 1.8 + 32);
     default:
       return value;
   }
@@ -256,7 +253,7 @@ function convertWindSpeedUnits(unit, value) {
     case "metric":
       return value;
     case "imperial":
-      return (value / 1.609).toFixed(1);
+      return Math.round(value / 1.609);
     default:
       return value;
   }
@@ -266,7 +263,7 @@ function convertWindSpeedUnits(unit, value) {
 function convertPrecipitationUnits(unit, value) {
   switch (unit) {
     case "imperial":
-      return (value / 25.4).toFixed(1);
+      return Math.round(value / 25.4);
     case "metric":
       return value;
     default:
@@ -304,7 +301,9 @@ function updateWeatherUI(weatherData) {
   const cityFeelsLike = document.querySelector(".feels_like");
   const cityPrecip = document.querySelector(".js_precip");
   img.src = `./assets/images/${iconName}.webp`;
-  img.alt = `weather icon representing ${iconName.replace("icon-", "").replace("-", " ")}`;
+  img.alt = `weather icon representing ${iconName
+    .replace("icon-", "")
+    .replace("-", " ")}`;
 
   cityName.textContent = `${city.name}, ${city.country}`;
   date.textContent = new Date().toLocaleDateString(undefined, {
@@ -321,15 +320,31 @@ function updateWeatherUI(weatherData) {
   cityHumidity.setAttribute("data-humid", humidity);
   cityFeelsLike.textContent = `${feelsLike}°`;
   cityFeelsLike.setAttribute("data-temp", feelsLike);
-  cityPrecip.textContent = `${precipitation} in`;
+  cityPrecip.textContent = `${precipitation} mm`;
   cityPrecip.setAttribute("data-precip", precipitation);
 
   if (currentUnit === "imperial") {
-    cityTemp.textContent = `${convertTemperatureUnits("imperial", temp)}°`;
-    cityWind.textContent = `${convertWindSpeedUnits("imperial", wind)} mph`;
-    cityHumidity.textContent = `${humidity}%`;
-    cityFeelsLike.textContent = `${convertTemperatureUnits("imperial", feelsLike)}°`;
-    cityPrecip.textContent = `${convertPrecipitationUnits("imperial", precipitation)} in`;
+    cityTemp.textContent = `${convertTemperatureUnits(
+      "imperial",
+      Number(cityTemp.dataset.temp)
+    )}°`;
+    cityWind.textContent = `${convertWindSpeedUnits(
+      "imperial",
+      Number(cityWind.dataset.wind)
+    )} mph`;
+    cityFeelsLike.textContent = `${convertTemperatureUnits(
+      "imperial",
+      Number(cityFeelsLike.dataset.temp)
+    )}°`;
+    cityPrecip.textContent = `${convertPrecipitationUnits(
+      "imperial",
+      Number(cityPrecip.dataset.precip)
+    )} in`;
+  } else if (currentUnit === "metric") {
+    cityTemp.textContent = `${Number(cityTemp.dataset.temp)}°`;
+    cityWind.textContent = `${Number(cityWind.dataset.wind)} km/h`;
+    cityFeelsLike.textContent = `${Number(cityFeelsLike.dataset.temp)}°`;
+    cityPrecip.textContent = `${Number(cityPrecip.dataset.precip)} mm`;
   }
 }
 
