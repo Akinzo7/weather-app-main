@@ -30,7 +30,7 @@
   </head>
 
   <body>
-    <header class="header" role="header">
+    <header class="header">
       <nav class="navbar">
         <div class="logo">
           <img src="./assets/images/logo.svg" alt="weather logo" />
@@ -43,7 +43,7 @@
             <img src="./assets/images/icon-dropdown.svg" alt="" />
           </button>
 
-          <div class="units_dropdown ">
+          <div class="units_dropdown">
             <button class="switch_units">Switch to Imperial</button>
 
             <div class="dropdown_section temperature">
@@ -70,7 +70,7 @@
                     <img src="./assets/images/icon-checkmark.svg" alt="" />
                   </span>
                 </button>
-                <button class="dropdown_option">mph</button>
+                <button class="dropdown_option">km/h</button>
               </div>
             </div>
 
@@ -98,13 +98,19 @@
 
       <div class="search_bar">
         <div class="input_wrapper">
-        <input
-          type="search"
-          id="searchInput"
-          placeholder="Search for a place..."
-
-        />
-        <ul class="search_suggestion">Search in progress</ul>
+          <input
+            type="search"
+            id="searchInput"
+            placeholder="Search for a place..."
+          />
+          <ul class="search_suggestion">
+            <div class="loading_container">
+            <span class="spinning_icon"
+              ><img src="./assets/images/icon-loading.svg" alt="loading icon"
+            /></span>
+            Search in progress
+            </div>
+          </ul>
         </div>
         <button class="search_button">Search</button>
       </div>
@@ -113,12 +119,12 @@
         <!-- CITY DETAILS -->
         <div class="city_details">
           <div class="city_info">
-            <h3>Berlin, Germany</h3>
-            <p>Tuesday, Aug 5, 2025</p>
+            <h3 class="city">Berlin, Germany</h3>
+            <p class="date">Tuesday, Aug 5, 2025</p>
           </div>
           <div class="temperature_info">
-            <img src="./assets/images/icon-sunny.webp" alt="" />
-            <em>68°</em>
+            <img class="hero_icon" src="./assets/images/icon-sunny.webp" alt="sunny icon" />
+            <em class="city_temp" data-temp="68">68°</em>
           </div>
         </div>
 
@@ -128,112 +134,106 @@
             <h3>Hourly forecast</h3>
             <div class="placeholder">
               <p>Tuesday</p>
-              <img src="./assets/images/icon-dropdown.svg" alt="dropdown icon" />
+              <img
+                src="./assets/images/icon-dropdown.svg"
+                alt="dropdown icon"
+              />
             </div>
           </div>
           <div class="hourly_container">
-          <div class="hourly_cards">
-            <div class="omo">
-            <img
-              src="./assets/images/icon-overcast.webp"
-              alt="overcast icon"
-            />
+            <div class="hourly_cards">
+              <div class="time_weather_group">
+                <img
+                  src="./assets/images/icon-overcast.webp"
+                  alt="overcast icon"
+                />
 
-            <p class="time">3 PM</p>
+                <p class="time">3 PM</p>
+              </div>
+              <p class="degs" data-temp="68">68°</p>
             </div>
-            <p class="degs">68°</p>
-          </div>
-          
-          <div class="hourly_cards">
-            <div class="omo">
-            <img
-              src="./assets/images/icon-partly-cloudy.webp"
-              alt="overcast icon"
-            />
-            <p class="time">4 PM</p>
+
+            <div class="hourly_cards">
+              <div class="time_weather_group">
+                <img
+                  src="./assets/images/icon-partly-cloudy.webp"
+                  alt="partly cloudy icon"
+                />
+                <p class="time">4 PM</p>
+              </div>
+              <p class="degs" data-temp="68">68°</p>
             </div>
-            <p class="degs">68°</p>
-          </div>
-          <div class="hourly_cards">
-            <div class="omo">
-            <img
-              src="./assets/images/icon-sunny.webp"
-              alt="sunny icon"
-            />
-            <p class="time">5 PM</p>
+            <div class="hourly_cards">
+              <div class="time_weather_group">
+                <img src="./assets/images/icon-sunny.webp" alt="sunny icon" />
+                <p class="time">5 PM</p>
+              </div>
+              <p class="degs" data-temp="68">68°</p>
             </div>
-            <p class="degs">68°</p>
-          </div>
-          <div class="hourly_cards">
-            <div class="omo">
-            <img
-              src="./assets/images/icon-partly-cloudy.webp"
-              alt="cloudy icon"
-            />
-            <p class="time">6 PM</p>
+            <div class="hourly_cards">
+              <div class="time_weather_group">
+                <img
+                  src="./assets/images/icon-partly-cloudy.webp"
+                  alt="cloudy icon"
+                />
+                <p class="time">6 PM</p>
+              </div>
+              <p class="degs" data-temp="66">66°</p>
             </div>
-            <p class="degs">66°</p>
-          </div>
-          <div class="hourly_cards">
-            <div class="omo">
-            <img
-              src="./assets/images/icon-snow.webp"
-              alt="snow icon"
-            />
-            <p class="time">7 PM</p>
+            <div class="hourly_cards">
+              <div class="time_weather_group">
+                <img src="./assets/images/icon-snow.webp" alt="snow icon" />
+                <p class="time">7 PM</p>
+              </div>
+              <p class="degs" data-temp="66">66°</p>
             </div>
-            <p class="degs">66°</p>
-          </div>
-          <div class="hourly_cards">
-            <div class="omo">
-            <img
-              src="./assets/images/icon-fog.webp"
-              alt="fog icon"
-            />
-            <p class="time">8 PM</p>
+            <div class="hourly_cards">
+              <div class="time_weather_group">
+                <img src="./assets/images/icon-fog.webp" alt="fog icon" />
+                <p class="time">8 PM</p>
+              </div>
+              <p class="degs" data-temp="64">64°</p>
             </div>
-            <p class="degs">64°</p>
-          </div>
-          <div class="hourly_cards">
-            <div class="omo">
-            <img
-              src="./assets/images/icon-drizzle.webp"
-              alt="drizzle icon"
-            />
-            <p class="time">9 PM</p>
+            <div class="hourly_cards">
+              <div class="time_weather_group">
+                <img
+                  src="./assets/images/icon-drizzle.webp"
+                  alt="drizzle icon"
+                />
+                <p class="time">9 PM</p>
+              </div>
+              <p class="degs" data-temp="63">63°</p>
             </div>
-            <p class="degs">63°</p>
-          </div>
-          <div class="hourly_cards">
-            <div class="omo">
-            <img
-              src="./assets/images/icon-overcast.webp"
-              alt="overcast icon"
-            />
-            <p class="time">10 PM</p>
+            <div class="hourly_cards">
+              <div class="time_weather_group">
+                <img
+                  src="./assets/images/icon-overcast.webp"
+                  alt="overcast icon"
+                />
+                <p class="time">10 PM</p>
+              </div>
+              <p class="degs">63°</p>
             </div>
-            <p class="degs">63°</p>
           </div>
-        </div>
         </div>
 
         <!-- WEATHER CARDS -->
         <div class="weather_cards">
           <div class="weather__card">
-            <h4>Feels Like</h4>
-            <p>64°</p>
+            <h4 >Feels Like</h4>
+            <p class="feels_like" data-feels-like="64" >64°</p>
           </div>
           <div class="weather__card">
-            <h4>Humidity</h4>
-            <p>46%</p>
+            <h4 >Humidity</h4>
+            <p class="js_humidity" data-humid="46">46%</p>
           </div>
           <div class="weather__card">
-            <h4>Wind</h4>
-            <p>9 mph</p>
+            <h4 >Wind</h4>
+            <p class="js_wind" data-wind="9">9 km/h</p>
           </div>
           <div class="weather__card">
-            <h4>Precipitation</h4>
-            <p>0 in</p>
+            <h4 >Precipitation</h4>
+            <p class="js_precip" data-precip="0">0 mm</p>
           </div>
         </div>
 
@@ -246,8 +246,8 @@
               <p>Tue</p>
               <img src="./assets/images/icon-rain.webp" alt="rain icon" />
               <div class="degrees">
-                <p>68°</p>
-                <p>57°</p>
+                <p data-temp="68">68°</p>
+                <p data-temp="57">57°</p>
               </div>
             </div>
 
@@ -255,8 +255,8 @@
               <p>Wed</p>
               <img src="./assets/images/icon-drizzle.webp" alt="drizzle icon" />
               <div class="degrees">
-                <p>70°</p>
-                <p>59°</p>
+                <p data-temp="70">70°</p>
+                <p data-temp="59">59°</p>
               </div>
             </div>
 
@@ -264,8 +264,8 @@
               <p>Thu</p>
               <img src="./assets/images/icon-sunny.webp" alt="sunny icon" />
               <div class="degrees">
-                <p>75°</p>
-                <p>57°</p>
+                <p data-temp="75">75°</p>
+                <p data-temp="57">57°</p>
               </div>
             </div>
 
@@ -276,8 +276,8 @@
                 alt="partly cloudy icon"
               />
               <div class="degrees">
-                <p>77°</p>
-                <p>55°</p>
+                <p data-temp="77">77°</p>
+                <p data-temp="55">55°</p>
               </div>
             </div>
 
@@ -285,8 +285,8 @@
               <p>Sat</p>
               <img src="./assets/images/icon-storm.webp" alt="storm icon" />
               <div class="degrees">
-                <p>70°</p>
-                <p>59°</p>
+                <p data-temp="70">70°</p>
+                <p data-temp="59">59°</p>
               </div>
             </div>
 
@@ -294,7 +294,7 @@
               <p>Sun</p>
               <img src="./assets/images/icon-snow.webp" alt="snow icon" />
               <div class="degrees">
-                <p>77°</p>
+                <p data-temp="77">77°</p>
                 <p>61°</p>
               </div>
             </div>
@@ -303,8 +303,8 @@
               <p>Mon</p>
               <img src="./assets/images/icon-fog.webp" alt="fog icon" />
               <div class="degrees">
-                <p>75°</p>
-                <p>59°</p>
+                <p data-temp="75">75°</p>
+                <p data-temp="59">59°</p>
               </div>
             </div>
           </div>
@@ -312,14 +312,12 @@
       </div>
     </main>
 
-
     <div class="attribution">
       Challenge by
       <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>.
       Coded by <a href="#">Your Name Here</a>.
     </div>
 
-    <script src="./script.js
-    "></script>
+    <script src="./script.js"></script>
   </body>
 </html>
