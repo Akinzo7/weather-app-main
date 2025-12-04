@@ -1,5 +1,6 @@
 //Elements Selectors
 let currentUnit = "metric";
+let currentWeatherData = null;
 // Units Dropdown
 const unitBtn = document.querySelector(".unit_button");
 const unitDropdown = document.querySelector(".units_dropdown");
@@ -93,14 +94,21 @@ function handleOptionSelection(e) {
 
 function toggleUnitSystem(e) {
   e.stopPropagation();
+  if (!currentWeatherData) {
+    console.log("No weather data available");
+    return;
+  }
+
   if (toggleSwitch.textContent === "Switch to Imperial") {
     toggleSwitch.textContent = "Switch to Metric";
     currentUnit = "imperial";
+    
   } else {
     toggleSwitch.textContent = "Switch to Imperial";
     currentUnit = "metric";
   }
 
+  updateWeatherUI(currentWeatherData);
   console.log("Current Unit System:", currentUnit);
 }
 
@@ -123,6 +131,8 @@ async function handleSearchClick() {
       return;
     }
     console.log("this is handlesearchclick result", result);
+
+    currentWeatherData = result;
 
     updateWeatherUI(result);
 
@@ -237,9 +247,9 @@ function convertWindSpeedUnits(unit, value) {
 //function to convert mm to inches
 function convertPrecipitationUnits(unit, value) {
   switch (unit) {
-    case "metric":
-      return (value / 25.4).toFixed(1);
     case "imperial":
+      return (value / 25.4).toFixed(1);
+    case "metric":
       return value;
     default:
       return value;
