@@ -7,10 +7,20 @@ const unitDropdown = document.querySelector(".units_dropdown");
 const dropdownOptions = document.querySelectorAll(".dropdown_option");
 const toggleSwitch = document.querySelector(".switch_units");
 
+//to hide elements
+const gridContainer = document.querySelector(".grid_container");
+const attribution = document.querySelector(".attribution");
+
+
+
 // Search Bar
 const search = document.getElementById("searchInput");
 const searchBtn = document.querySelector(".search_button");
 const suggestionBox = document.querySelector(".search_suggestion");
+
+//Error state elements
+const errorState = document.querySelector(".error_state");
+const retryButton = document.querySelector(".retry_button");
 
 // object to hold weather icon
 const weatherCodeToIcon = {
@@ -42,6 +52,33 @@ const getIconName = (code) => {
 };
 
 //Functions
+
+// Function to show error state
+function showErrorState() {
+  console.log("Showing error state");
+  errorState.classList.remove("hidden");
+  errorState.classList.add("visible");
+}
+
+function hideErrorState() {
+  console.log("Hiding error state");
+  errorState.classList.remove("visible");
+  errorState.classList.add("hidden");
+}
+
+function handleRetry() {
+  console.log("Retry clicked");
+  hideErrorState();
+
+  // If there was a previous search, retry it
+  if (search.value.trim()) {
+    handleSearchClick();
+  } else {
+    // If no search, just reload the current weather (Berlin)
+    fetchCityWeather("Lagos");
+  }
+}
+
 function showLoadingState() {
   suggestionBox.classList.add("visible");
   searchBtn.disabled = true;
@@ -50,7 +87,7 @@ function showLoadingState() {
 }
 
 function hideLoadingState() {
-  suggestionBox.classList.remove("visible");
+  // suggestionBox.classList.remove("visible");
   searchBtn.disabled = false;
   searchBtn.style.cursor = "pointer";
   search.disabled = false;
@@ -115,45 +152,44 @@ function toggleUnitSystem(e) {
 
 async function handleSearchClick() {
   console.log(search.value);
-  suggestionBox.classList.add("visible");
+ 
   if (!search.value.trim()) {
     console.log("search input is empty");
     return;
   }
+   suggestionBox.classList.add("visible");
+    showLoadingState();
+  
+    try {
+      const result = await fetchCityWeather(search.value);
 
-  showLoadingState();
+      hideLoadingState();
 
-  try {
-    const result = await fetchCityWeather(search.value);
-
-    hideLoadingState();
-
-    if (!result) {
-      console.error("City not found");
-      return;
+      if (!result) {
+        console.error("City not found");
+        return;
+      }
+      console.log("this is handlesearchclick result", result);
+      currentWeatherData = result;
+      updateWeatherUI(result);
+      console.log("City Weather Result:", result);
+    } catch (error) {
+      hideLoadingState();
+      console.error("Error fetching city weather:", error);
+      showErrorState();
     }
-    console.log("this is handlesearchclick result", result);
-
-    currentWeatherData = result;
-
-    updateWeatherUI(result);
-
-    console.log("City Weather Result:", result);
-  } catch (error) {
-    hideLoadingState();
-    console.error("Error fetching city weather:", error);
   }
-}
 
-function showSearchSuggestions(e) {}
 
 //Geocoding API Call
 async function getCoordinates(cityName) {
   try {
     console.log("Fetching coordinates for:", cityName);
 
+    showLoadingState();
+
     const response = await fetch(
-      `https://geocoding-api.open-meteo.com/v1/search?name=${cityName}&count=1`
+      `https://geocoding-api.open-meteo.com/v1/search?name=${cityName}&count=5`
     );
 
     if (!response.ok) {
@@ -167,15 +203,58 @@ async function getCoordinates(cityName) {
       throw new Error("No results found");
     }
 
-    const { latitude, longitude, name, country } = data.results[0];
-    console.log(
-      `Coordinates for ${cityName}: Lat ${latitude}, Lon ${longitude}`
-    );
-    return { latitude, longitude, name, country };
+    
+
+    if (data.results.length > 1) {
+      displayCitySuggestions(data.results);
+      return { suggestions: data.results };
+    } else {
+      const { latitude, longitude, name, country } = data.results[0];
+      console.log(
+        `Coordinates for ${cityName}: Lat ${latitude}, Lon ${longitude}`
+      );
+      return { latitude, longitude, name, country };
+    }
   } catch (error) {
     console.log("Geocoding error:", error);
+    hideLoadingState();
+    showErrorState();
     return null;
   }
+}
+
+//function to display city suggestions
+function displayCitySuggestions(cities) {
+  suggestionBox.innerHTML = "";
+
+  cities.forEach((city) => {
+    const cityItem = document.createElement("li");
+    cityItem.classList.add("suggestion_item");
+    cityItem.textContent = `${city.name}, ${city.country}`;
+    cityItem.setAttribute("data-lat", city.latitude);
+    cityItem.setAttribute("data-lon", city.longitude);
+    cityItem.setAttribute("data-name", city.name);
+    cityItem.setAttribute("data-country", city.country);
+    suggestionBox.appendChild(cityItem);
+    cityItem.addEventListener("click", async () => {
+      const latitude = cityItem.getAttribute("data-lat");
+      const longitude = cityItem.getAttribute("data-lon");
+      const name = cityItem.getAttribute("data-name");
+      const country = cityItem.getAttribute("data-country");
+
+      const weather = await getWeatherData(latitude, longitude);
+      const result = {
+        cityInfo: { latitude, longitude, name, country },
+        weather,
+      };
+      currentWeatherData = result;
+
+      
+      updateWeatherUI(result);
+      suggestionBox.classList.remove("visible");
+      hideLoadingState();
+    });
+  });
 }
 
 //weather Api to get city weather data
@@ -194,6 +273,7 @@ async function getWeatherData(lat, lon) {
     return data;
   } catch (error) {
     console.error("Weather data error:", error);
+    showErrorState();
     return null;
   }
 }
@@ -204,8 +284,8 @@ async function fetchCityWeather(cityName) {
 
     const coords = await getCoordinates(cityName);
 
-    if (!coords) {
-      throw new Error("city not found");
+    if (coords && coords.suggestions) {
+      return null;
     }
 
     const weatherData = await getWeatherData(coords.latitude, coords.longitude);
@@ -217,6 +297,7 @@ async function fetchCityWeather(cityName) {
     return { cityInfo: coords, weather: weatherData };
   } catch (error) {
     console.error("Failed to fetch city weather", error);
+    showErrorState();
     return null;
   }
 }
@@ -271,15 +352,91 @@ function convertPrecipitationUnits(unit, value) {
   }
 }
 
+//function to get update hourly weather UI
+function updateHourlyForecast(hourlyData, unit) {
+  const hourlyContainer = document.querySelector(".hourly_container");
+  hourlyContainer.innerHTML = ""; // Clear existing cards
+
+  // Only show the next 8 hours
+  for (let i = 0; i < 8; i++) {
+    const time = new Date(hourlyData.time[i]);
+    const temp = Math.round(hourlyData.temperature_2m[i]);
+    const weatherCode = hourlyData.weather_code[i];
+    const iconName = getIconName(weatherCode);
+
+    const hourCard = document.createElement("div");
+    hourCard.classList.add("hourly_cards");
+
+    const displayTemp =
+      unit === "metric"
+        ? `${temp}°`
+        : `${convertTemperatureUnits("imperial", temp)}°`;
+
+    hourCard.innerHTML = `
+      <div class="time_weather_group">
+        <img src="./assets/images/${iconName}.webp" alt="${iconName} icon">
+        <p class="time">${time.toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        })}</p>
+      </div>
+      <p class="degs" data-temp="${temp}">${displayTemp}</p>
+    `;
+
+    hourlyContainer.appendChild(hourCard);
+  }
+}
+
+//function to get update daily weather UI
+function updateDailyForecast(dailyData, unit) {
+  const dailyContainer = document.querySelector(".forecast_cards");
+
+  dailyContainer.innerHTML = "";
+
+  for (let i = 0; i < 7; i++) {
+    const date = new Date(dailyData.time[i]);
+    const dayName = date.toLocaleDateString("en-US", { weekday: "short" });
+    const maxTemp = Math.round(dailyData.temperature_2m_max[i]);
+    const minTemp = Math.round(dailyData.temperature_2m_min[i]);
+    const weatherCode = dailyData.weather_code[i];
+    const iconName = getIconName(weatherCode);
+
+    const dayCard = document.createElement("div");
+    dayCard.classList.add("forecast__card");
+
+    const displayMax =
+      unit === "metric"
+        ? `${maxTemp}°`
+        : `${convertTemperatureUnits("imperial", maxTemp)}°`;
+    const displayMin =
+      unit === "metric"
+        ? `${minTemp}°`
+        : `${convertTemperatureUnits("imperial", minTemp)}°`;
+
+    dayCard.innerHTML = `
+      <p>${dayName}</p>
+      <img src="./assets/images/${iconName}.webp" alt="${iconName} icon">
+      <div class="degrees">
+        <p data-temp="${maxTemp}">${displayMax}</p>
+        <p data-temp="${minTemp}">${displayMin}</p>
+      </div>
+    `;
+
+    dailyContainer.appendChild(dayCard);
+  }
+}
+
 //function to update UI
 function updateWeatherUI(weatherData) {
   console.log("Updating UI with:", weatherData);
+  gridContainer.classList.remove('hidden');
+attribution.classList.remove('hidden');
   const { cityInfo: city, weather } = weatherData;
 
   //weather details
   const currentWeather = weather.current;
   const dailyWeather = weather.daily;
-  const hoourlyWeather = weather.hourly;
+  const hourlyWeather = weather.hourly;
   const temp = Math.round(currentWeather.temperature_2m);
   const feelsLike = Math.round(currentWeather.apparent_temperature);
   const humidity = currentWeather.relative_humidity_2m;
@@ -291,6 +448,8 @@ function updateWeatherUI(weatherData) {
   const iconName = getIconName(weatherCode);
   console.log("icon name:", iconName);
   console.log("precip UI with:", precipitation);
+  updateHourlyForecast(hourlyWeather, currentUnit);
+  updateDailyForecast(dailyWeather, currentUnit);
 
   // Update city name and date
   const cityName = document.querySelector(".city");
@@ -365,7 +524,18 @@ dropdownOptions.forEach((option) => {
 toggleSwitch.addEventListener("click", toggleUnitSystem);
 
 // Search bar functionality
-
-search.addEventListener("input", showSearchSuggestions);
-
+search.addEventListener("keyup", (e) => {
+  if (e.key === "Enter") {
+    handleSearchClick();
+  }
+});
 searchBtn.addEventListener("click", handleSearchClick);
+// Add retry button event listener
+retryButton.addEventListener("click", handleRetry);
+
+
+// Test function to simulate API error
+function simulateApiError() {
+  console.log('Simulating API error...');
+  showErrorState();
+}

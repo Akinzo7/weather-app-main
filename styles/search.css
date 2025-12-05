@@ -102,3 +102,15 @@
     animation: none;
   }
 }
+
+/* suggestion list */
+.suggestion_item {
+  list-style: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  border-radius: 0.3rem;
+}
+
+.suggestion_item:hover {
+  background-color: hsl(243, 23%, 40%);
+}
