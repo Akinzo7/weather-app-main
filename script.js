@@ -157,7 +157,7 @@ async function handleSearchClick() {
     console.log("search input is empty");
     return;
   }
-   suggestionBox.classList.add("visible");
+
     showLoadingState();
   
     try {
@@ -166,13 +166,14 @@ async function handleSearchClick() {
       hideLoadingState();
 
       if (!result) {
-        console.error("City not found");
+       
         return;
       }
       console.log("this is handlesearchclick result", result);
       currentWeatherData = result;
       updateWeatherUI(result);
       console.log("City Weather Result:", result);
+      suggestionBox.classList.remove("visible");
     } catch (error) {
       hideLoadingState();
       console.error("Error fetching city weather:", error);
@@ -188,8 +189,8 @@ async function getCoordinates(cityName) {
 
     showLoadingState();
 
-    const response = await fetch(
-      `https://geocoding-api.open-meteo.com/v1/search?name=${cityName}&count=5`
+     const response = await fetch(
+      `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cityName)}&count=5`
     );
 
     if (!response.ok) {
@@ -285,6 +286,7 @@ async function fetchCityWeather(cityName) {
     const coords = await getCoordinates(cityName);
 
     if (coords && coords.suggestions) {
+      suggestionBox.classList.add("visible");
       return null;
     }
 
