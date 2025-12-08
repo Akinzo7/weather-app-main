@@ -1,7 +1,7 @@
 # ⛅️Weather App
 
 ## 🎯 Live Demo
-[WEATHER-APP] (https://akinzoweatherapp.netlify.app/)
+[WEATHER-APP](https://akinzoweatherapp.netlify.app/)
 
 ### Screenshot
 
