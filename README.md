@@ -5,7 +5,7 @@
 
 ### Screenshot
 
-![Screenshot]()
+![Screenshot](./assets/images/Screenshot%202025-12-05%20180054.png)
 
 ## ✨ Features
 ✅ Search for weather information by entering a location in the search bar  
