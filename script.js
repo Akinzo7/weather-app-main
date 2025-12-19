@@ -536,8 +536,3 @@ searchBtn.addEventListener("click", handleSearchClick);
 retryButton.addEventListener("click", handleRetry);
 
 
-// Test function to simulate API error
-function simulateApiError() {
-  console.log('Simulating API error...');
-  showErrorState();
-}
